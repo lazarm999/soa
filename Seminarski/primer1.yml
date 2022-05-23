@@ -1,0 +1,32 @@
+metadata:
+  name: soa-projekat1-primer1
+  labels:
+    nuclio.io/project-name: default
+spec:
+  description: \"Uses moment.js (which is installed as part of the build) to add a specified amount of time to \"now\", and returns this amount as a string.\n\"
+  handler: handler
+  runtime: nodejs
+  resources:
+    requests:
+      cpu: 25m
+      memory: 1Mi
+  minReplicas: 1
+  maxReplicas: 1
+  triggers:
+    default-http:
+      class: ""
+      kind: http
+      name: default-http
+      maxWorkers: 1
+  build:
+    functionSourceCode: LyoKQ29weXJpZ2h0IDIwMTcgVGhlIE51Y2xpbyBBdXRob3JzLgoKTGljZW5zZWQgdW5kZXIgdGhlIEFwYWNoZSBMaWNlbnNlLCBWZXJzaW9uIDIuMCAodGhlICJMaWNlbnNlIik7CnlvdSBtYXkgbm90IHVzZSB0aGlzIGZpbGUgZXhjZXB0IGluIGNvbXBsaWFuY2Ugd2l0aCB0aGUgTGljZW5zZS4KWW91IG1heSBvYnRhaW4gYSBjb3B5IG9mIHRoZSBMaWNlbnNlIGF0CgogICAgaHR0cDovL3d3dy5hcGFjaGUub3JnL2xpY2Vuc2VzL0xJQ0VOU0UtMi4wCgpVbmxlc3MgcmVxdWlyZWQgYnkgYXBwbGljYWJsZSBsYXcgb3IgYWdyZWVkIHRvIGluIHdyaXRpbmcsIHNvZnR3YXJlCmRpc3RyaWJ1dGVkIHVuZGVyIHRoZSBMaWNlbnNlIGlzIGRpc3RyaWJ1dGVkIG9uIGFuICJBUyBJUyIgQkFTSVMsCldJVEhPVVQgV0FSUkFOVElFUyBPUiBDT05ESVRJT05TIE9GIEFOWSBLSU5ELCBlaXRoZXIgZXhwcmVzcyBvciBpbXBsaWVkLgpTZWUgdGhlIExpY2Vuc2UgZm9yIHRoZSBzcGVjaWZpYyBsYW5ndWFnZSBnb3Zlcm5pbmcgcGVybWlzc2lvbnMgYW5kCmxpbWl0YXRpb25zIHVuZGVyIHRoZSBMaWNlbnNlLgoqLwoKLy8gVXNlcyBtb21lbnQuanMgKGluc3RhbGxlZCBhcyBwYXJ0IG9mIHRoZSBidWlsZCkgdG8gYWRkIGEgZ2l2ZW4gYW1vdW50IG9mIHRpbWUKLy8gdG8gIm5vdyIsIGFuZCByZXR1cm5zIHRoaXMgYXMgc3RyaW5nLiBJbnZva2Ugd2l0aCBhIEpTT04gY29udGFpbmluZzoKLy8gIC0gdmFsdWU6IHNvbWUgbnVtYmVyCi8vICAtIHVuaXQ6IHNvbWUgbW9tZW50anMgdW5pdCwgYXMgYSBzdHJpbmcgLSBlLmcuIGRheXMsIGQsIGhvdXJzLCBtaWxpc2Vjb25kcwovLwovLyBGb3IgZXhhbXBsZSwgdGhlIGZvbGxvd2luZyB3aWxsIGFkZCAzIGhvdXJzIHRvIGN1cnJlbnQgdGltZSBhbmQgcmV0dXJuIHRoZSByZXNwb25zZToKLy8gewovLyAgICAgInZhbHVlIjogMywKLy8gICAgICJ1bml0IjogImhvdXJzIgovLyB9Ci8vCgp2YXIgbW9tZW50ID0gcmVxdWlyZSgnbW9tZW50Jyk7CgpleHBvcnRzLmFkZFRvQ3VycmVudERhdGUgPSBmdW5jdGlvbihjb250ZXh0LCBldmVudCkgewogICAgdmFyIHJlcXVlc3QgPSBKU09OLnBhcnNlKGV2ZW50LmJvZHkpOwogICAgdmFyIG5vdyA9IG1vbWVudCgpOwoKICAgIGNvbnRleHQubG9nZ2VyLmluZm9XaXRoKCdBZGRpbmcgdG8gbm93JywgewogICAgICAgICdyZXF1ZXN0JzogcmVxdWVzdCwKICAgICAgICAndG8nOiBub3cuZm9ybWF0KCkKICAgIH0pOwoKICAgIG5vdy5hZGQocmVxdWVzdC52YWx1ZSwgcmVxdWVzdC51bml0KTsKCiAgICBjb250ZXh0LmNhbGxiYWNrKG5vdy5mb3JtYXQoKSk7Cn07Cg==
+    commands:
+      - 'npm install --global moment'
+    runtimeAttributes:
+      repositories: []
+    codeEntryType: sourceCode
+    timestamp: 1652352426
+  platform: {}
+  securityContext: {}
+  eventTimeout: ""
+  version: 1

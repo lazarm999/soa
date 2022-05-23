@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  api_db: # ime servisa
+    build: ./api_db
+  api_gateway:
+    build: ./api_gateway
+    ports:
+      - "8080:8080"
