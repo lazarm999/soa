@@ -1,0 +1,43 @@
+name: "testApp"
+labels:
+  - "test app"
+description: "Test app"
+
+deviceResources:
+  - name: state
+    description: "JSON message"
+    properties:
+      value:
+        { type: "String", readWrite: "WR" , mediaType : "application/json", defaultValue: "off" }
+
+deviceCommands:
+  - name: "state"
+    get:
+      - { operation: "get", deviceResource: "state" }
+    set:
+      - { operation: "set", deviceResource: "state", parameter: "state" }
+
+coreCommands:
+  -
+    name: state
+    get:
+      path: "/state"
+      responses:
+      -
+        code: "200"
+        description: "get current state"
+        expectedValues: ["state"]
+      -
+        code: "503"
+        description: "service unavailable"
+        expectedValues: []
+    put:
+      path: "/state"
+      responses:
+      -
+        code: "201"
+        description: "set state"
+      -
+        code: "503"
+        description: "service unavailable"
+        expectedValues: []

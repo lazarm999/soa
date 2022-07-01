@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package default;
+
+service Notification {
+    rpc sendEvent(Event) returns (Response);
+}
+
+message Response{
+    string res = 1;
+}
+
+message Event{
+    string text = 1;
+}

@@ -1,0 +1,38 @@
+Korišćena su dva public API-ja:​
+
+1. Genius API - pruža informacije o tekstovima pesama​
+
+2. Translator Text API – Microsoft-ov API za prevod​
+
+Dataset koji smo koristili sadrži podatke o pesmama poput naslova pesme, imena izvođača, datuma kada je pesma izbačena
+
+API gateway je napisan u Javascriptu korišćenjem Node-a i Express framework-a​
+
+Drugi mikroservis baziran na Flask-u (Python framework) komunicira sa MongoDB no-sql bazom podataka u kojoj se skladište osnovne informacije o pesmama​
+
+API gateway vrši agregaciju podataka dobijenih iz baze sa podacima sa public API-ja​
+
+Za popunjavanje baze kreirana je posebna aplikacija, kako se podaci ne bi unosili ručno
+
+Za pokretanje aplikacije ​pozicionirati se unutar foldera "Projekat 1 i 2" i izvršiti naredbu:
+docker-compose up -d --build
+
+Testiranje aplikacije se može izvršiti uz pomoć Postman-a ili nekog drugog alata. 
+
+GET localhost:8080/song/{idPesme}
+Npr: localhost:8080/song/2lbASgTSoDO7MTuLAXlTW0
+
+GET localhost:8080/song/{idPesme}?lan={jezikNaKojiHoćemoDaPrevedemoTekstPesme}
+Npr: localhost:8080/song/2lbASgTSoDO7MTuLAXlTW0?lan=fr
+
+PATCH localhost:8080/song/{idPesme}
+Npr:
+localhost:8080/song/2lbASgTSoDO7MTuLAXlTW0
+Body
+{
+    "name": "Novo ime pesme"
+}
+
+DELETE localhost:8080/song/{idPemse}
+Npr: localhost:8080/song/2lbASgTSoDO7MTuLAXlTW0
+

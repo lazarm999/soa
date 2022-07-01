@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package default;
+
+service Notification {
+    rpc sendEvent(Event) returns (Response);
+}
+
+message Response{
+    string res = 1;
+}
+
+message Event{
+    string beach_name = 1;
+    string measurement_timestamp = 2;
+    float water_temperature = 3;
+    float wave_height = 4;
+    float wave_period = 5;
+    float battery_life = 6;
+}

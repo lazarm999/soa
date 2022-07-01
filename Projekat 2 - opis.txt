@@ -1,0 +1,56 @@
+Delom se oslanja na API gateway mikroservis iz prvog projekta​
+
+Korišćen je novi dataset sa informacijama o temperaturi vode i visini talasa na plažama i stanju baterije uređaja koji mere date karakteriste​
+
+Analytics mikroservis konzumira podatke sa Mosquitto topic-a i šalje ih eKupier-u, eksternom mikroservisu za analizu podataka​
+
+Notification mikroservis preko gRPC-a biva obavešten kada uslovi za plivanje nisu dobri ili kada nivo baterije padne ispod zadate vrednosti
+
+UPUSTVO ZA POKRETANJE
+
+(Ukoliko ste već pokrenuli prvi projekat nema potrebe da se ponovo izvrši ova naredba) Za pokretanje aplikacije ​pozicionirati se unutar foldera "Projekat 1 i 2" i izvršiti naredbu:
+docker-compose up -d --build
+
+Pokrenuti pretraživač i ići na adresu localhost:9082
+Ulogovati se:
+    username: admin
+    password: public
+Dodati novi servis:
+    Service type: Dirrect link service
+    Service name: Analytics
+    Endpoint: http://kuiper:9081
+Konfigurisati servis
+    Configuration tab > Source config > mqtt > Dodati novi
+        Name: data_conf
+        Server list: tcp://mqtt:1883 (ovde obavezno pritisnuti ENTER!!!)
+    Source tab > Create stream
+        Stream Name: data_stream
+        Data Source: /data
+        Stream Type: mqtt
+        Configuration key: data_conf
+        Stream Format: json
+    Rules > Create rule
+        Rule ID: analyze
+        SQL: SELECT * FROM data_stream WHERE wave_height > 0.2 OR battery_life < 10
+        Actions:
+            Sink: mqtt
+            MQTT broker address: tcp://mqtt:1883
+            MQTT topic: /event
+
+Pokrenuti pretraživač i ići na adresu localhost:8086
+Kliknuti na dugme Get Started
+Username eVeL
+Password sifra123
+Organization name eVeL
+Bucket soa
+Kliknuti na dugme Quick Start
+Kliknuti na tab Data koje se nalazi sa leve strane zatim na tab API Tokens i kopirati eVeL's Token.
+U source code-u u u fajlu Projekat/analytics/index.js dodeliti promenljivoj token vrednost kopiranog tokena.
+Pozicionirati se unutar foldera "Projekat 1 i 2" i izvršiti naredbu:
+docker-compose up -d --build
+
+Pozicionirati se unutar foldera Projekat 1 i 2/loader/ i izvršiti naredbe:
+npm install
+npm start
+
+Aplikacija će početi da šalje podatke gateway mikroservisu. Informacije o detektovanim dogadjajima će se ispisivati u konzoli "projekat_analytics_1" kontejnera i moguće je pratiti ih korišćenjem Docker aplikacije.

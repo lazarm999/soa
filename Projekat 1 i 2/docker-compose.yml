@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  api_db:
+    build: ./api_db
+  api_gateway:
+    build: ./api_gateway
+    ports:
+      - "8080:8080"
+  analytics:
+    depends_on:
+      - notification
+    build: ./analytics
+    ports:
+      - 1999:1999
+  notification:
+    build: ./notification
+  mqtt:
+    container_name: mqtt
+    image: eclipse-mosquitto
+    restart: always
+    volumes:
+      - ./volumes/config:/mosquitto/config
+    ports:
+      - 1883:1883
+      - 9001:9001
+  kuiper:
+    container_name: kuiper
+    image: lfedge/ekuiper:1.5-slim-python
+    restart: always
+    ports:
+      - 9081:9081
+  kuiperManager:
+    container_name: kuiperManager
+    image: emqx/ekuiper-manager:1.5
+    restart: always
+    ports:
+      - 9082:9082
+  influxdb:
+    container_name: influxdb
+    image: influxdb:2.2.0
+    restart: always
+    ports:
+      - 8086:8086

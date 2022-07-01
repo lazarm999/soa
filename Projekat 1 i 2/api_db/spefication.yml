@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: API DB
+  version: 1.0.0
+paths:
+  /song/{id}:
+    get:
+      description: Get song by ID
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Song"
+        '404':
+          "$ref": "#/components/responses/NotFound"
+    delete:
+      description: Delete song by ID
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+        '404':
+          "$ref": "#/components/responses/NotFound"
+    patch:
+      description: Update song's name by ID
+      requestBody:
+        description: Song name
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties: 
+                name:
+                  type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request. Request body does not contain "name" field
+        '404':
+          "$ref": "#/components/responses/NotFound"
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+  /song:
+     post:
+      description: Post song
+      requestBody:
+        description: Song
+        required: true
+        content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Song"
+      responses:
+        '200':
+          description: Post song
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request. Request body must contain all required fields.
+          
+components:
+  schemas:
+    Song:
+      type: object
+      required:
+        - _id
+        - name
+        - album
+        - artists
+        - release_date
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        album:
+          type: string
+        artists:
+          type: string
+        release_date:
+          type: string
+        lyrics:
+          type: string
+  responses:
+     NotFound:
+      description: The song with the specified ID was not found
+        
